@@ -16,9 +16,22 @@ Functions:
 - Access HTTP/GET parameters in a type-safe manner.
 - Help with the JSON format (input / output)
 
+|Request|Response|
+|---|---|
+|Request::getPostedJson(): array|Response::printJson(array $json, $http_status_code = 200)|
+|Request::getIntParameter(string $paramName): int|Response::bufferStart()|
+|Request::getFloatParameter(string $paramName): float|Response::bufferEndClean()|
+|Request::getStringParameter(string $paramName): string|Response::isBufferEnabled(): bool|
+|Request::getBoolParameter(string $paramName): bool|Response::JsonContentType($http_status_code = 200)|
+|Request::isParameterSet(string $paramName): bool|Response::HtmlContentType($http_status_code = 200)|
+|Request::getHttpRequestMethod(): string|Response::TextContentType($http_status_code = 200)|
+
 For everything else, use the built-in functions of PHP.
 
 Recommended IDE: [PhpStorm](https://www.jetbrains.com/phpstorm/)
+
+Packagist page: https://packagist.org/packages/tbolner/flex-php-io
+
 
 ## Example usages
 
@@ -97,3 +110,19 @@ Notes:
     headers anymore after data was written to the output.
 - In the FlexPhpRouter example, the output buffering should've already
     been set up in the main initialization file or entry point.
+
+## Installation
+
+```json
+{
+    "require": {
+        "tbolner/flex-php-io": "dev-master"
+    }
+}
+```
+
+Then execute:
+
+    composer update
+
+This library requires PHP 7.1 or newer.

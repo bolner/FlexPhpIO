@@ -1,0 +1,29 @@
+{
+  "name": "tbolner/flex-php-io",
+  "description": "IO library for web and CLI applications.",
+  "keywords": [
+    "php",
+    "io",
+    "cli",
+    "web",
+    "content-type",
+    "output-buffering"
+  ],
+  "authors": [
+    {
+      "name": "Tamas Bolner",
+      "homepage": "http://blog.bolner.hu",
+      "role": "Developer"
+    }
+  ],
+  "license": "Apache-2.0",
+  "type": "library",
+  "require": {
+    "php": ">=7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "FlexPhpIO\\": "src/"
+    }
+  }
+}

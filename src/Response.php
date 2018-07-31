@@ -72,4 +72,18 @@ class Response {
             echo json_encode($json, JSON_PRETTY_PRINT);
         }
     }
+
+    /**
+     * @param string $path
+     * @param int $http_status_code
+     */
+    public static function printHtmlFile(string $path, $http_status_code = 200) {
+        $content = @file_get_contents($path);
+        if (!is_string($content)) {
+            throw new \Exception("File not found: $path");
+        }
+
+        self::HtmlContentType($http_status_code);
+        echo $content;
+    }
 }

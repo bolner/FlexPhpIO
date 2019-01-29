@@ -76,6 +76,7 @@ class Response {
     /**
      * @param string $path
      * @param int $http_status_code
+     * @throws \Exception
      */
     public static function printHtmlFile(string $path, $http_status_code = 200) {
         $content = @file_get_contents($path);
@@ -85,5 +86,32 @@ class Response {
 
         self::HtmlContentType($http_status_code);
         echo $content;
+    }
+
+    /**
+     * Prints as text for CLI and as JSON for web.
+     * It only prints the text messages in the chained (previous) exceptions,
+     * but doesn't print the call stack and other information.
+     *
+     * @param \Exception $ex
+     * @param int $http_status_code
+     */
+    public static function printException(\Exception $ex, $http_status_code = 400) {
+        $messages = [];
+
+        do {
+            $messages[] = $ex->getMessage();
+            $ex = $ex->getPrevious();
+        } while ($ex !== null);
+
+        if (php_sapi_name() == "cli") {
+            fwrite(STDERR, implode("\n", $messages)."\n");
+        } else {
+            self::JsonContentType($http_status_code);
+            echo json_encode([
+                "status" => "error",
+                "messages" => $messages
+            ], JSON_PRETTY_PRINT);
+        }
     }
 }
